@@ -7,19 +7,20 @@ public class Animal {
     private String cor;
     private String porte;
     private Integer idade;
-
+    private int imagemResourceId;
     public Animal(
             Integer id,
             String raca,
             String cor,
             String porte,
-            Integer idade
+            Integer idade, Integer imagemResourceId
     ) {
         this.id = id;
         this.raca = raca;
         this.cor = cor;
         this.porte = porte;
         this.idade = idade;
+        this.imagemResourceId = imagemResourceId;
     }
 
     public Integer getId() {
@@ -60,5 +61,13 @@ public class Animal {
 
     public void setCep(Integer idade) {
         this.idade = idade;
+    }
+
+    public Integer getImagemResourceId() {
+        return imagemResourceId;
+    }
+
+    public void setImagemResourceId(Integer imagemResourceId) {
+       this.imagemResourceId = imagemResourceId;
     }
 }

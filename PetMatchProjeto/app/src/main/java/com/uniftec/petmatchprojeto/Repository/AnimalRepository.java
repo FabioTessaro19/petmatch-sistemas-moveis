@@ -10,7 +10,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.uniftec.petmatchprojeto.Interfaces.Usuario;
 import com.uniftec.petmatchprojeto.Models.Animal;
+import com.uniftec.petmatchprojeto.Models.AnimalFavorito;
+import com.uniftec.petmatchprojeto.Models.UsuarioONG;
 import com.uniftec.petmatchprojeto.Uteis.DataBaseUtil;
 
 public class AnimalRepository {
@@ -37,24 +40,71 @@ public class AnimalRepository {
         return db.insert("animals", null, values);
     }
 
-    public List<Animal> getAll() {
-        List<Animal> animais = new ArrayList<>();
-        String[] columns = {"id", "raca", "cor", "porte", "idade"};
-        Cursor cursor = db.query("animals", columns, null, null, null, null, null);
+    public List<AnimalFavorito> getFavoritos(Integer userId) {
+        List<AnimalFavorito> animais = new ArrayList<>();
+        String[] columns = { "idAnimal"};
+        String selection = "idUsuario = ?";
+        String[] selectionArgs = {String.valueOf(userId)};
+        Cursor cursor = db.query("favoritos", columns, selection, selectionArgs, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Animal animal = new Animal(
-                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("raca")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("cor")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("porte")),
-                        cursor.getInt(cursor.getColumnIndexOrThrow("idade"))
-                );
-                animais.add(animal);
+                int idAnimal = 0;
+                String cor = "";
+                String raca = "";
+                int idade = 0;
+                int imagemResourceId = 0;
+
+                int columnIndex = cursor.getColumnIndex("cor");
+                if (columnIndex >= 0){
+                    idAnimal = cursor.getInt(columnIndex);
+                }
+
+                String[] columnsAnimals = { "cor", "raca", "idade"};
+                String selectionAnimals = "id = ?";
+                String[] selectionArgsAnimals = {String.valueOf(idAnimal)};
+                Cursor cursorAnimal = db.query("animals", columnsAnimals, selectionAnimals, selectionArgsAnimals, null, null, null);
+
+
+                // Consulta para obter os detalhes do animal usando o idAnimal
+              //  Cursor cursorAnimal = db.query("animals",
+               //         new String[]{"cor", "raca", "idade", "imagemResourceId"},
+               //         "id = ?",
+                //        new String[]{String.valueOf(idAnimal)},
+                 //       null, null, null);
+
+                // Verificar se encontrou o animal
+                if (cursorAnimal.moveToFirst()) {
+                    columnIndex = cursorAnimal.getColumnIndex("cor");
+                    if (columnIndex >= 0) {
+                         cor = cursorAnimal.getString(columnIndex);
+                    }
+                    columnIndex = cursorAnimal.getColumnIndex("raca");
+                    if (columnIndex >= 0) {
+                         raca = cursorAnimal.getString(columnIndex);
+                    }
+                    columnIndex = cursorAnimal.getColumnIndex("idade");
+                    if (columnIndex >= 0) {
+                         idade = cursorAnimal.getInt(columnIndex);
+                    }
+                    columnIndex = cursorAnimal.getColumnIndex("imagemResourceId");
+                    if (columnIndex >= 0) {
+                         imagemResourceId = cursorAnimal.getInt(columnIndex);
+                    }
+
+                    // Criar um objeto AnimalFavorito com os dados obtidos
+                    AnimalFavorito animalFavorito = new AnimalFavorito(cor, raca, idade, imagemResourceId);
+                    animais.add(animalFavorito);
+                }
+
+                cursorAnimal.close(); // Fechar o cursor do animal após o uso
+
             } while (cursor.moveToNext());
         }
-        cursor.close();
+
+        cursor.close(); // Fechar o cursor de favoritos após o uso
+        db.close(); // Fechar o banco de dados após o uso
+
         return animais;
     }
 
@@ -71,7 +121,8 @@ public class AnimalRepository {
                     cursor.getString(cursor.getColumnIndexOrThrow("raca")),
                     cursor.getString(cursor.getColumnIndexOrThrow("cor")),
                     cursor.getString(cursor.getColumnIndexOrThrow("porte")),
-                    cursor.getInt(cursor.getColumnIndexOrThrow("idade"))
+                    cursor.getInt(cursor.getColumnIndexOrThrow("idade")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("imagemResourceId"))
             );
         }
         cursor.close();

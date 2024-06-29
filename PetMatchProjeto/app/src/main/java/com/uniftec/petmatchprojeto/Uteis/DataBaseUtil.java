@@ -33,13 +33,16 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                 "raca TEXT," +
                 "cor TEXT," +
                 "porte TEXT," +
-                "idade INTEGER)";
+                "idade INTEGER," +
+                "imagemResourceId INTEGER)";
         db.execSQL(createTableAnimals);
 
         String createTableFavoritos = "CREATE TABLE favoritos (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "idAnimal INTEGER," +
-                "idUsuario INTEGER)";
+                "idUsuario INTEGER," +
+                "FOREIGN KEY (id_usuario) REFERENCES usuarios (id)," +
+                "FOREIGN KEY (id_animal) REFERENCES animais (id))";
         db.execSQL(createTableFavoritos);
 
 
@@ -85,8 +88,8 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                 "gato",
                 "preto",
                 "pequeno",
-                1),
-                R.drawable.gato_tcc);
+                1,
+                R.drawable.gato_tcc));
 
         insertAnimal(
                 db,
@@ -95,8 +98,8 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                         "gato",
                         "branco",
                         "pequeno",
-                        2),
-                R.drawable.gato_tres);
+                        2,
+                R.drawable.gato_tres));
 
         insertAnimal(
                 db,
@@ -105,8 +108,8 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                         "cachorro",
                         "branco",
                         "pequeno",
-                        1),
-                R.drawable.cachorro_tres_app);
+                        1,
+                R.drawable.cachorro_tres_app));
 
         insertAnimal(
                 db,
@@ -115,8 +118,8 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                         "cachorro",
                         "preto",
                         "pequeno",
-                        2),
-                R.drawable.cachrro_app);
+                        2,
+                R.drawable.cachrro_app));
 
 
         insertAnimal(
@@ -126,8 +129,8 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                         "cachorro",
                         "mesclado",
                         "pequeno",
-                        1),
-                R.drawable.cachorro_dois_app);
+                        1,
+                R.drawable.cachorro_dois_app));
 
 
         insertAnimal(
@@ -137,8 +140,8 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                         "gato",
                         "cinza",
                         "pequeno",
-                        1),
-                R.drawable.gato_doisi);
+                        1,
+                R.drawable.gato_doisi));
 
         insertAnimal(
                 db,
@@ -147,19 +150,20 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                         "gato",
                         "laranja",
                         "pequeno",
-                        1),
-                R.drawable.gato_quatro);
+                        1,
+                R.drawable.gato_quatro));
 
         Log.d("DataBaseUtil", "valores padrão inseridos");
     }
 
-    private void insertAnimal(SQLiteDatabase db, Animal animal, int imagem) {
+    private void insertAnimal(SQLiteDatabase db, Animal animal) {
         Log.d("DataBaseUtil", "insertAnimal: Inserting animal - " + animal.getRaca() + " - " + animal.getCor() + ")");
         ContentValues values = new ContentValues();
         values.put("raca", animal.getRaca());
         values.put("cor", animal.getCor());
         values.put("porte", animal.getPorte());
         values.put("idade", animal.getIdade());
+        values.put("imagemResourceId", animal.getImagemResourceId());
         db.insert("animals", null, values);
     }
 
