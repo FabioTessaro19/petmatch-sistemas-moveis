@@ -1,4 +1,4 @@
-package com.uniftec.petmatchprojeto.Uteis;
+package com.uniftec.petmatchprojeto;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.uniftec.petmatchprojeto.R;
+import com.uniftec.petmatchprojeto.Models.Animal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,14 +113,8 @@ public class HomeFragment extends Fragment {
         loveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Incrementa o índice
-                currentIndex--;
-                // Reinicia o índice se passar do último
-                if (currentIndex >= imageIds.length) {
-                    currentIndex = 0;
-                }
-                // Define a imagem atual
-                imageView.setImageResource(imageIds[currentIndex]);
+                // Adiciona o animal atual aos favoritos
+
             }
         });
 

@@ -14,24 +14,24 @@
 
         tools:targetApi="31">
         <activity
-            android:name=".Uteis.RegisterOngActivity"
+            android:name=".RegisterOngActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".Uteis.TypeRegisterActivity"
+            android:name=".TypeRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Uteis.FinishRegisterActivity"
+            android:name=".FinishRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Uteis.TypeAnimalActivity"
+            android:name=".TypeAnimalActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".Uteis.RegisterActivity"
+            android:name=".RegisterActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".Uteis.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
 
@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Uteis.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

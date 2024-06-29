@@ -1,4 +1,4 @@
-package com.uniftec.petmatchprojeto.Uteis;
+package com.uniftec.petmatchprojeto;
 
 import android.os.Bundle;
 
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.uniftec.petmatchprojeto.R;
 import com.uniftec.petmatchprojeto.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
