@@ -14,7 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.petmatchprojeto.Models.UsuarioONG;
+import com.uniftec.petmatchprojeto.Repository.UsuarioRepository;
+
 public class RegisterOngActivity extends AppCompatActivity {
+    private UsuarioRepository usuarioRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,7 @@ public class RegisterOngActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        usuarioRepository = new UsuarioRepository(this);
         EditText nomeCompletoEdit = findViewById(R.id.editNomeCompleto);
         EditText emailEdit = findViewById(R.id.editEmailAddress);
         EditText passwordEdit = findViewById(R.id.editPassword);
@@ -54,6 +58,16 @@ public class RegisterOngActivity extends AppCompatActivity {
                     !textCepEdit.isEmpty() &&
                     !textCpfCnpj.isEmpty()
                 ) {
+                    UsuarioONG usuarioONG =  new UsuarioONG(
+                            1,
+                            textNomeCompleto,
+                            textEmail,
+                            textPassword,
+                            textCepEdit,
+                            textCpfCnpj
+                    );
+                    usuarioRepository.insertOng(usuarioONG);
+
                     Intent intent = new Intent(RegisterOngActivity.this, FinishRegisterActivity.class);
                     startActivity(intent);
                 }

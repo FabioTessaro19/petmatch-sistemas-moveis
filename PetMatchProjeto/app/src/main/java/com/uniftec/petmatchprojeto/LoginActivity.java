@@ -16,7 +16,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.petmatchprojeto.Repository.UsuarioRepository;
+
 public class LoginActivity extends AppCompatActivity {
+    private UsuarioRepository usuarioRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        usuarioRepository = new UsuarioRepository(this);
         EditText emailEditText = findViewById(R.id.editTextTextEmailAddress);
         EditText passwordEditText = findViewById(R.id.editTextTextPassword);
         Button authenticateButton = findViewById(R.id.authenticateButton);
@@ -39,8 +43,21 @@ public class LoginActivity extends AppCompatActivity {
                 String textPassword = passwordEditText.getText().toString().trim();
 
                 if (!textEmail.isEmpty() && !textPassword.isEmpty()){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+
+                    if (usuarioRepository.getByLogin(textEmail, textPassword)){
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("Email ou Senha incorretos!")
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .show();
+                    }
+
                 }
                 else{
                     new AlertDialog.Builder(LoginActivity.this)

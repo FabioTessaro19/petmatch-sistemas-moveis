@@ -21,6 +21,13 @@ public class AnimalRepository {
         db = dbHelper.getWritableDatabase();
     }
 
+    public long favorite(Integer userId, Integer animalId) {
+        ContentValues values = new ContentValues();
+        values.put("idAnimal", animalId);
+        values.put("idUsuario", userId);
+        return db.insert("favoritos", null, values);
+    }
+
     public long insert(Animal animal) {
         ContentValues values = new ContentValues();
         values.put("raca", animal.getRaca());

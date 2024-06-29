@@ -15,7 +15,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.uniftec.petmatchprojeto.Models.UsuarioNormal;
+import com.uniftec.petmatchprojeto.Repository.UsuarioRepository;
+
 public class RegisterActivity extends AppCompatActivity {
+    private UsuarioRepository usuarioRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        usuarioRepository = new UsuarioRepository(this);
         EditText nomeCompletoEdit = findViewById(R.id.editNomeCompleto);
         EditText emailEdit = findViewById(R.id.editEmailAddress);
         EditText passwordEdit = findViewById(R.id.editPassword);
@@ -46,7 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String textConfirmPassword = confirmPasswordEdit.getText().toString().trim();
                 String textCepEdit = cepEdit.getText().toString().trim();
 
-
                 if (
                     !textNomeCompleto.isEmpty() &&
                     !textEmail.isEmpty() &&
@@ -54,6 +57,15 @@ public class RegisterActivity extends AppCompatActivity {
                     !textConfirmPassword.isEmpty() &&
                     !textCepEdit.isEmpty()
                 ){
+
+                    UsuarioNormal usuarioNormal =  new UsuarioNormal(
+                            1,
+                            textNomeCompleto,
+                            textEmail,
+                            textPassword,
+                            textCepEdit
+                    );
+                    usuarioRepository.insertNormal(usuarioNormal);
                     Intent intent = new Intent(RegisterActivity.this, TypeAnimalActivity.class);
                     startActivity(intent);
                 }

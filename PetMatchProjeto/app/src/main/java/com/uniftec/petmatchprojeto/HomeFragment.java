@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.uniftec.petmatchprojeto.Models.Animal;
+import com.uniftec.petmatchprojeto.Repository.AnimalRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +24,7 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private AnimalRepository animalRepository;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -47,12 +49,15 @@ public class HomeFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        animalRepository = new AnimalRepository(requireActivity());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -76,7 +81,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         ImageView imageView = view.findViewById(R.id.imageView);
         Button nextButton = view.findViewById(R.id.nextAnimal);
         Button backButton = view.findViewById(R.id.backAnimal);
@@ -85,13 +89,10 @@ public class HomeFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Incrementa o índice
                 currentIndex++;
-                // Reinicia o índice se passar do último
                 if (currentIndex >= imageIds.length) {
                     currentIndex = 0;
                 }
-                // Define a imagem atual
                 imageView.setImageResource(imageIds[currentIndex]);
             }
         });
@@ -99,32 +100,22 @@ public class HomeFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Incrementa o índice
                 currentIndex--;
-                // Reinicia o índice se passar do último
                 if (currentIndex >= imageIds.length) {
                     currentIndex = 0;
                 }
-                // Define a imagem atual
                 imageView.setImageResource(imageIds[currentIndex]);
             }
         });
 
         loveButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // Adiciona o animal atual aos favoritos
-
+                animalRepository.favorite(1, currentIndex);
             }
         });
 
         return view;
     }
-
-  //  @Override
-  //  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-  //                          Bundle savedInstanceState) {
-  //      // Inflate the layout for this fragment
-  //      return inflater.inflate(R.layout.fragment_home, container, false);
-  //  }
 }

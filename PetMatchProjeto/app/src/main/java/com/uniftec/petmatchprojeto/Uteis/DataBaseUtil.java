@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.uniftec.petmatchprojeto.HomeFragment;
 import com.uniftec.petmatchprojeto.Models.Animal;
 import com.uniftec.petmatchprojeto.Models.UsuarioNormal;
 import com.uniftec.petmatchprojeto.Models.UsuarioONG;
@@ -17,6 +18,7 @@ public class DataBaseUtil extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "animals_list.db";
     private static final int DATABASE_VERSION = 1;
+
 
     public DataBaseUtil(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

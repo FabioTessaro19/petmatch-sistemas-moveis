@@ -1,6 +1,8 @@
 package com.uniftec.petmatchprojeto.Models;
 
-public class UsuarioONG {
+import com.uniftec.petmatchprojeto.Interfaces.Usuario;
+
+public class UsuarioONG implements Usuario {
 
     private Integer id;
     private String nomeCompleto;
