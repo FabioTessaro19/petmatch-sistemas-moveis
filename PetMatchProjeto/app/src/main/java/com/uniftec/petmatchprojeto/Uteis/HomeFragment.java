@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.uniftec.petmatchprojeto.R;
 
@@ -57,10 +59,78 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
+    private int[] imageIds = {
+            R.drawable.gato_tcc,
+            R.drawable.cachrro_app,
+            R.drawable.cachorro_dois_app,
+            R.drawable.gato_doisi,
+            R.drawable.gato_quatro,
+            R.drawable.cachorro_tres_app,
+            R.drawable.gato_tres
+    };
+    private int currentIndex = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        ImageView imageView = view.findViewById(R.id.imageView);
+        Button nextButton = view.findViewById(R.id.nextAnimal);
+        Button backButton = view.findViewById(R.id.backAnimal);
+        Button loveButton = view.findViewById(R.id.loveAnimal);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Incrementa o índice
+                currentIndex++;
+                // Reinicia o índice se passar do último
+                if (currentIndex >= imageIds.length) {
+                    currentIndex = 0;
+                }
+                // Define a imagem atual
+                imageView.setImageResource(imageIds[currentIndex]);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Incrementa o índice
+                currentIndex--;
+                // Reinicia o índice se passar do último
+                if (currentIndex >= imageIds.length) {
+                    currentIndex = 0;
+                }
+                // Define a imagem atual
+                imageView.setImageResource(imageIds[currentIndex]);
+            }
+        });
+
+        loveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Incrementa o índice
+                currentIndex--;
+                // Reinicia o índice se passar do último
+                if (currentIndex >= imageIds.length) {
+                    currentIndex = 0;
+                }
+                // Define a imagem atual
+                imageView.setImageResource(imageIds[currentIndex]);
+            }
+        });
+
+        return view;
     }
+
+  //  @Override
+  //  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+  //                          Bundle savedInstanceState) {
+  //      // Inflate the layout for this fragment
+  //      return inflater.inflate(R.layout.fragment_home, container, false);
+  //  }
 }
