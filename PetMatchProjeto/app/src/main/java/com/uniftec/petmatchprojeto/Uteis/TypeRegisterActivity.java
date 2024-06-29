@@ -1,5 +1,4 @@
-package com.uniftec.petmatchprojeto;
-
+package com.uniftec.petmatchprojeto.Uteis;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,30 +11,40 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class RegisterActivity extends AppCompatActivity {
+import com.uniftec.petmatchprojeto.R;
+
+public class TypeRegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_type_register);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        Button nextRegisterStep = findViewById(R.id.nextRegisterButton);
-        nextRegisterStep.setOnClickListener(new View.OnClickListener() {
+
+        Button normalUserButton = findViewById(R.id.normalUserButton);
+        normalUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, TypeAnimalActivity.class);
+                Intent intent = new Intent(TypeRegisterActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
+        Button ongButton = findViewById(R.id.ongUserButton);
+        ongButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TypeRegisterActivity.this, RegisterOngActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
 
 
 }
