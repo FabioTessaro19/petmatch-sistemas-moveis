@@ -45,12 +45,14 @@ public class UsuarioRepository {
         Usuario usuarioNormal = null;
         UsuarioONG usuarioOng = null;
         String[] columns = {"id", "nomeCompleto", "email", "senha", "cep"};
+        String[] columnsOng = {"id", "nomeCompleto", "email", "senha", "cep", "cpfCnpj"};
         String selection = "email = ? and senha = ?";
         String[] selectionArgs = {String.valueOf(email), (password)};
         Cursor cursor = db.query("usuariosNormal", columns, selection, selectionArgs,  null, null, null);
-        Cursor cursorOng = db.query("usuariosONG", columns, selection, selectionArgs, null, null, null);
+        Cursor cursorOng = db.query("usuariosONG", columnsOng, selection, selectionArgs, null, null, null);
 
-        if (cursor.moveToFirst()) {
+
+        if (cursor != null && cursor.moveToFirst()) {
             usuarioNormal = new UsuarioNormal(
                     cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     cursor.getString(cursor.getColumnIndexOrThrow("nomeCompleto")),
@@ -60,14 +62,14 @@ public class UsuarioRepository {
             );
             return true;
         }
-        else if (cursorOng.moveToFirst()){
+        if (cursorOng != null && cursorOng.moveToFirst()){
             usuarioOng = new UsuarioONG(
-                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("nomeCompleto")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("email")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("senha")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("cep")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("cpfCnpj"))
+                    cursorOng.getInt(cursorOng.getColumnIndexOrThrow("id")),
+                    cursorOng.getString(cursorOng.getColumnIndexOrThrow("nomeCompleto")),
+                    cursorOng.getString(cursorOng.getColumnIndexOrThrow("email")),
+                    cursorOng.getString(cursorOng.getColumnIndexOrThrow("senha")),
+                    cursorOng.getString(cursorOng.getColumnIndexOrThrow("cep")),
+                    cursorOng.getString(cursorOng.getColumnIndexOrThrow("cpfCnpj"))
             );
             return true;
         }
