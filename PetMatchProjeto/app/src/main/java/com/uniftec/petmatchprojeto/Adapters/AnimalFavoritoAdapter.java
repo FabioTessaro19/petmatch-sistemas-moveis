@@ -52,10 +52,10 @@ public class AnimalFavoritoAdapter extends RecyclerView.Adapter<AnimalFavoritoAd
 
         public AnimalViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgAnimal = itemView.findViewById(R.id.imageViewAnimal); // Corrigido para o ID correto
-            txtCor = itemView.findViewById(R.id.textViewCor); // Corrigido para o ID correto
-            txtRaca = itemView.findViewById(R.id.textViewRaca); // Corrigido para o ID correto
-            txtIdade = itemView.findViewById(R.id.textViewIdade); // Corrigido para o ID correto
+            imgAnimal = itemView.findViewById(R.id.imageViewAnimal);
+            txtCor = itemView.findViewById(R.id.textViewCor);
+            txtRaca = itemView.findViewById(R.id.textViewRaca);
+            txtIdade = itemView.findViewById(R.id.textViewIdade);
         }
 
         public void bind(AnimalFavorito animal) {

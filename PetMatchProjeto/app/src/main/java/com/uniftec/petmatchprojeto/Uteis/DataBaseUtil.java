@@ -16,7 +16,7 @@ import com.uniftec.petmatchprojeto.R;
 
 public class DataBaseUtil extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "animals_list.db";
+    private static final String DATABASE_NAME = "pet_match.db";
     private static final int DATABASE_VERSION = 1;
 
 
@@ -27,24 +27,20 @@ public class DataBaseUtil extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("DataBaseUtil", "onCreate: Creating database");
-
         String createTableAnimals = "CREATE TABLE animals (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "raca TEXT," +
                 "cor TEXT," +
                 "porte TEXT," +
-                "idade INTEGER," +
-                "imagemResourceId INTEGER)";
+                "imagemResourceId INTEGER," +
+                "idade INTEGER)";
         db.execSQL(createTableAnimals);
 
         String createTableFavoritos = "CREATE TABLE favoritos (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "idAnimal INTEGER," +
-                "idUsuario INTEGER," +
-                "FOREIGN KEY (id_usuario) REFERENCES usuarios (id)," +
-                "FOREIGN KEY (id_animal) REFERENCES animais (id))";
+                "idUsuario INTEGER)";
         db.execSQL(createTableFavoritos);
-
 
         String createTableUsuarios = "CREATE TABLE usuariosNormal (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -53,7 +49,6 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                 "senha TEXT," +
                 "cep TEXT)";
         db.execSQL(createTableUsuarios);
-
 
         String createTableUsuariosOng = "CREATE TABLE usuariosOng (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -64,7 +59,6 @@ public class DataBaseUtil extends SQLiteOpenHelper {
                 "cpfCnpj TEXT)";
         db.execSQL(createTableUsuariosOng);
 
-        // Inserir produtos padrão
         insertDefaultAnimals(db);
         insertDefaultUsers(db);
         insertDefaultFavoritos(db);
@@ -72,6 +66,7 @@ public class DataBaseUtil extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("Database Upgrade", "Upgrading database from version " + oldVersion + " to " + newVersion);
         db.execSQL("DROP TABLE IF EXISTS animals");
         db.execSQL("DROP TABLE IF EXISTS favoritos");
         db.execSQL("DROP TABLE IF EXISTS usuariosNormal");

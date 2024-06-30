@@ -60,6 +60,7 @@ public class UsuarioRepository {
                     cursor.getString(cursor.getColumnIndexOrThrow("senha")),
                     cursor.getString(cursor.getColumnIndexOrThrow("cep"))
             );
+            int idUser = cursor.getInt(cursor.getColumnIndexOrThrow(("id")));
             return true;
         }
         if (cursorOng != null && cursorOng.moveToFirst()){

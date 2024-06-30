@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
                                 })
                                 .show();
                     }
-
                 }
                 else{
                     new AlertDialog.Builder(LoginActivity.this)

@@ -49,32 +49,27 @@ public class AnimalRepository {
 
         if (cursor.moveToFirst()) {
             do {
-                int idAnimal = 0;
+                // idAnimal = 0;
                 String cor = "";
                 String raca = "";
                 int idade = 0;
                 int imagemResourceId = 0;
 
-                int columnIndex = cursor.getColumnIndex("cor");
-                if (columnIndex >= 0){
-                    idAnimal = cursor.getInt(columnIndex);
-                }
+                int columnIndex = cursor.getColumnIndex("idAnimal");
 
-                String[] columnsAnimals = { "cor", "raca", "idade"};
+                String[] columnsAnimals = { "cor", "raca", "idade", "imagemResourceId"};
                 String selectionAnimals = "id = ?";
-                String[] selectionArgsAnimals = {String.valueOf(idAnimal)};
+                String[] selectionArgsAnimals = {String.valueOf(cursor.getInt(columnIndex))};
                 Cursor cursorAnimal = db.query("animals", columnsAnimals, selectionAnimals, selectionArgsAnimals, null, null, null);
 
-
-                // Consulta para obter os detalhes do animal usando o idAnimal
               //  Cursor cursorAnimal = db.query("animals",
                //         new String[]{"cor", "raca", "idade", "imagemResourceId"},
                //         "id = ?",
                 //        new String[]{String.valueOf(idAnimal)},
                  //       null, null, null);
 
-                // Verificar se encontrou o animal
                 if (cursorAnimal.moveToFirst()) {
+                    do {
                     columnIndex = cursorAnimal.getColumnIndex("cor");
                     if (columnIndex >= 0) {
                          cor = cursorAnimal.getString(columnIndex);
@@ -92,18 +87,18 @@ public class AnimalRepository {
                          imagemResourceId = cursorAnimal.getInt(columnIndex);
                     }
 
-                    // Criar um objeto AnimalFavorito com os dados obtidos
                     AnimalFavorito animalFavorito = new AnimalFavorito(cor, raca, idade, imagemResourceId);
                     animais.add(animalFavorito);
-                }
 
-                cursorAnimal.close(); // Fechar o cursor do animal após o uso
+                    } while (cursorAnimal.moveToNext());
+                }
+                cursorAnimal.close();
 
             } while (cursor.moveToNext());
         }
 
-        cursor.close(); // Fechar o cursor de favoritos após o uso
-        db.close(); // Fechar o banco de dados após o uso
+        cursor.close();
+        db.close();
 
         return animais;
     }

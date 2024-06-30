@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                animalRepository.favorite(1, currentIndex);
+                animalRepository.favorite(2, currentIndex);
             }
         });
 

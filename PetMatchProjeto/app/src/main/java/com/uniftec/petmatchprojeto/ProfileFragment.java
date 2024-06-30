@@ -75,34 +75,27 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Inicializar RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewAnimaisFavoritados);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        // Carregar dados de animais favoritados (exemplo)
         carregarAnimaisFavoritados();
 
         return view;
     }
 
     private void carregarAnimaisFavoritados() {
-        // Simulação de dados de animais favoritados (substitua com seus próprios dados do banco de dados)
        // listaAnimaisFavoritos.add(new AnimalFavorito("Marrom", "Labrador", 5, R.drawable.gato_tres));
        // listaAnimaisFavoritos.add(new AnimalFavorito("Preto", "Poodle", 3, R.drawable.cachorro_dois_app));
         //listaAnimaisFavoritos.add(new AnimalFavorito("Branco", "Vira-lata", 2, R.drawable.cachrro_app));
 
-        // Configurar o adapter
         //adapter = new AnimalFavoritoAdapter(listaAnimaisFavoritos);
         //recyclerView.setAdapter(adapter);
 
-        // Limpar lista anterior
         listaAnimaisFavoritos.clear();
 
-        // Substitua pelo seu método de consulta ao banco de dados favoritos
-        listaAnimaisFavoritos = animalRepository.getFavoritos(1); // Substitua '1' pelo ID do usuário atual
+        listaAnimaisFavoritos = animalRepository.getFavoritos(2);
 
-        // Configurar o adapter com a lista atualizada
         adapter = new AnimalFavoritoAdapter(listaAnimaisFavoritos);
         recyclerView.setAdapter(adapter);
 
